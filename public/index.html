@@ -5,12 +5,83 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>AI Desk</title>
   <style>
-    body{font-family:system-ui,sans-serif;max-width:760px;margin:56px auto;padding:0 20px;line-height:1.6;color:#172033;background:#f6f8fb}
-    .card{display:block;background:#fff;border:1px solid #dbe2ed;border-radius:16px;padding:24px;text-decoration:none;color:inherit;box-shadow:0 5px 18px #17203312}.card:hover{border-color:#6c8cff}h1{margin-bottom:8px}p{color:#5c687c}
+    :root {
+      --bg-1: #fffaf5;
+      --bg-2: #f3f6ff;
+      --panel: rgba(255, 255, 255, 0.8);
+      --panel-strong: #ffffff;
+      --border: #e9dff8;
+      --text: #2f2a3d;
+      --muted: #6f6780;
+      --lavender: #d8c8ff;
+      --peach: #ffd9c7;
+      --mint: #d9f7e8;
+      --sky: #dfeeff;
+      --button: #a7b8ff;
+      --button-hover: #8ea6ff;
+      --shadow: rgba(125, 106, 165, 0.14);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: system-ui, sans-serif;
+      max-width: 820px;
+      margin: 56px auto;
+      padding: 0 20px;
+      line-height: 1.6;
+      color: var(--text);
+      background: linear-gradient(135deg, var(--bg-1), var(--bg-2));
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(2.1rem, 4vw, 3rem);
+      letter-spacing: -0.04em;
+    }
+
+    p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .card {
+      display: block;
+      margin-top: 26px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 26px 24px;
+      text-decoration: none;
+      color: inherit;
+      box-shadow: 0 14px 32px var(--shadow);
+      backdrop-filter: blur(8px);
+      transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: #c8d4ff;
+      box-shadow: 0 18px 34px rgba(134, 125, 214, 0.18);
+    }
+
+    .card h2 {
+      margin: 0 0 8px;
+      font-size: 1.6rem;
+    }
+
+    .card p {
+      color: var(--muted);
+    }
   </style>
 </head>
 <body>
-  <h1>AI Desk</h1><p>Portal Hub — เลือกเครื่องมือที่ต้องการใช้งาน</p>
-  <a class="card" href="/chat/"><h2>💬 หน้าต่าง Chat</h2><p>คุยกับ Gemini, OpenAI หรือ Custom gateway ผ่าน backend อย่างปลอดภัย</p></a>
+  <h1>AI Desk</h1>
+  <p>Portal Hub — เลือกเครื่องมือที่ต้องการใช้งาน</p>
+
+  <a class="card" href="/chat/">
+    <h2>💬 หน้าต่าง Chat</h2>
+    <p>คุยกับ Gemini, OpenAI หรือ Custom gateway ผ่าน backend อย่างปลอดภัย</p>
+  </a>
 </body>
 </html>

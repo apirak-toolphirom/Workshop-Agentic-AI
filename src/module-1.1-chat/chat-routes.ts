@@ -17,6 +17,35 @@ export function defaultModelFor(provider: ChatProvider, env: Env): string {
   return env.OPENAI_COMPAT_MODEL?.trim() || 'gpt-4o-mini';
 }
 
+export function getChatConfig(env: Env): {
+  defaultProvider: ChatProvider;
+  providers: Record<ChatProvider, { defaultModel: string; models: string[] }>;
+} {
+  const defaultProvider = resolveProvider(undefined, env);
+  const fallbackModels: Record<ChatProvider, string[]> = {
+    gemini: ['gemini-2.0-flash', 'gemini-2.0-flash-lite', 'gemini-1.5-pro', 'gemini-1.5-flash'],
+    openai: ['gpt-4o-mini', 'gpt-4o', 'gpt-4.1-mini', 'gpt-4.1'],
+    'openai-compat': ['gpt-4o-mini', 'gpt-4o', 'gpt-4.1-mini', 'claude-3-5-sonnet', 'llama-3.1-8b-instruct']
+  };
+
+  const providers = {
+    gemini: {
+      defaultModel: defaultModelFor('gemini', env),
+      models: Array.from(new Set([...fallbackModels.gemini, defaultModelFor('gemini', env)])),
+    },
+    openai: {
+      defaultModel: defaultModelFor('openai', env),
+      models: Array.from(new Set([...fallbackModels.openai, defaultModelFor('openai', env)])),
+    },
+    'openai-compat': {
+      defaultModel: defaultModelFor('openai-compat', env),
+      models: Array.from(new Set([...fallbackModels['openai-compat'], defaultModelFor('openai-compat', env)])),
+    }
+  } satisfies Record<ChatProvider, { defaultModel: string; models: string[] }>;
+
+  return { defaultProvider, providers };
+}
+
 export function buildSystemPrompt(hasTools: boolean): string {
   return `คุณคือผู้ช่วย AI ของระบบ AI Desk ตอบเป็นภาษาไทยอย่างสุภาพและกระชับ${hasTools ? ' หากมีเครื่องมือ ให้ใช้เมื่อจำเป็นและอธิบายผลลัพธ์ให้ผู้ใช้เข้าใจ' : ''}`;
 }
